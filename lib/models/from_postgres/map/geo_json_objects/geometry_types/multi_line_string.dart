@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:fst_app_flutter/models/from_postgres/map/geometry_types/geometry_object.dart';
-import 'package:fst_app_flutter/models/from_postgres/map/geometry_types/geometry_type.dart';
-import 'package:fst_app_flutter/models/from_postgres/map/geometry_types/line_string.dart';
+import 'package:fst_app_flutter/models/from_postgres/map/geo_json_objects/geo_json_type.dart';
+import 'package:fst_app_flutter/models/from_postgres/map/geo_json_objects/geometry_types/geometry_object.dart';
+import 'package:fst_app_flutter/models/from_postgres/map/geo_json_objects/geometry_types/line_string.dart';
 
 // TODO: document @richtwin567
 class GeoJsonMultiLineString extends GeoJsonGeometryObject {
   List<GeoJsonLineString> coordinates;
   GeoJsonMultiLineString({@required coordsJson})
       : assert(coordsJson != null),
-        super(GeoJsonGeometryType.multiLineString) {
+        super(GeoJsonType.multiLineString) {
     coordinates = [];
     var lineStringCoords = [];
     for (var i = 0; i < coordsJson.length; i++) {

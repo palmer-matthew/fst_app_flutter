@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   style="enable-background:new"
+   id="svg6"
+   version="1.1"
+   viewBox="0 0 428.23784 184.9231"
+   height="184.92311"
+   width="428.23785">
+  <metadata
+     id="metadata12">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs10" />
+  <g
+     transform="translate(-14.8675,-778.67689)"
+     data-name="Group 9"
+     id="Group_9">
+    <path
+       style="fill:#f2bb05"
+       transform="translate(-1269,-989)"
+       d="m 1283.8675,1782.2117 c 0,0 26.7858,-23.676 112.3996,-10.5931 C 1495.0932,1786.7205 1586,1883.7 1623.7,1855.1 c 37.7,-28.6 88.085,-14.3 88.085,-14.3 v 73.5371 l -426.7918,-7.7754 z"
+       data-name="Path 7"
+       id="Path_7" />
+    <path
+       style="fill:#17255a"
+       transform="translate(-1269,-989)"
+       d="m 1484.6,1843.4 c 61.1,-33.8 228.5973,-91.5933 227.5,-62.4 -0.8042,21.3964 0,171.5999 0,171.5999 L 1484.6,1927.9 Z"
+       data-name="Path 9"
+       id="Path_9" />
+    <path
+       style="fill:#468189"
+       transform="translate(-1269,-989)"
+       d="m 1284.7084,1857.1772 c 0,0 136.1916,-95.6772 194.6916,-56.6772 58.5,39 131.431,31.542 131.431,31.542 L 1712.1,1816.1 v 136.5 l -427.2413,-10e-5 z"
+       data-name="Path 8"
+       id="Path_8" />
+  </g>
+</svg>

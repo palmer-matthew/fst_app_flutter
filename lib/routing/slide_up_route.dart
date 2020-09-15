@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-// TODO: document @richtwin567
+/// Makes the new route slide up into view from below.
 class SlideUpPageRoute extends PageRouteBuilder {
   final Widget page;
 

@@ -16,6 +16,8 @@ openUrl(String url) async {
   if (await urlLauncher.canLaunch(url)) {
     try {
       await urlLauncher.launch(url);
-    } catch (e) {}
+    } catch (e) {
+      // TODO
+    }
   }
 }

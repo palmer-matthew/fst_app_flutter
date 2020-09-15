@@ -10,9 +10,8 @@ import 'package:fst_app_flutter/utils/social_media_contact_share.dart';
 import 'package:fst_app_flutter/widgets/contact_widgets/contact_card.dart';
 import 'package:fst_app_flutter/widgets/contact_widgets/contact_detail_image.dart';
 
-// TODO: document(update) @richtwin567
 /// A page that shows all the details for the selected contact.
-/// It allows the user to open websites, call the contact and send an email to
+/// It allows the user to open websites, call the contact, save the contact to their phones and send an email to
 /// the contact directly from the app.
 class ContactDetailPage extends StatelessWidget {
   /// The information [Map] for this contact

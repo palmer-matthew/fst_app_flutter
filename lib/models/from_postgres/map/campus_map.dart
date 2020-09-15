@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:fst_app_flutter/models/from_postgres/map/geo_json_types/feature.dart';
-import 'package:fst_app_flutter/models/from_postgres/map/geo_json_types/feature_collection.dart';
+import 'package:fst_app_flutter/models/from_postgres/map/geo_json_objects/feature.dart';
+import 'package:fst_app_flutter/models/from_postgres/map/geo_json_objects/feature_collection.dart';
 import 'package:fst_app_flutter/services/handle_heroku_requests.dart';
 
 // TODO: document @richtwin567

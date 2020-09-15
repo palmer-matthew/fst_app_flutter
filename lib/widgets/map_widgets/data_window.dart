@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:fst_app_flutter/models/from_postgres/map/properties.dart';
 import 'package:fst_app_flutter/widgets/shape_borders/arrowed_tooltip.dart';
 
-
-// TODO: document @richtwin567
+/// A window that displays the [Feature] data for the corresponding [Marker] when tapped.
 class DataWindow extends StatefulWidget {
+  /// The [Feature] [Properties].
   final Properties properties;
+  /// The window's shape.
   final ArrowedTooltip shape;
   DataWindow({Key key, @required this.properties, @required this.shape})
       : super(key: key);

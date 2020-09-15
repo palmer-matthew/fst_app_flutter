@@ -42,9 +42,6 @@ class HomeArt extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    print(size.height);
-    print(size.width);
-    print(size);
     Paint wavePaint1 = Paint()
       ..color = colorOne
       ..style = PaintingStyle.fill;

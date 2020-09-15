@@ -1,19 +1,18 @@
-import 'package:fst_app_flutter/models/from_postgres/map/geo_json_types/geo_json_object.dart';
-import 'package:fst_app_flutter/models/from_postgres/map/geo_json_types/geo_json_type.dart';
-import 'package:fst_app_flutter/models/from_postgres/map/geometry_types/geometry_object.dart';
-import 'package:fst_app_flutter/models/from_postgres/map/geometry_types/geometry_type.dart';
-import 'package:fst_app_flutter/models/from_postgres/map/geometry_types/line_string.dart';
-import 'package:fst_app_flutter/models/from_postgres/map/geometry_types/multi_point.dart';
-import 'package:fst_app_flutter/models/from_postgres/map/geometry_types/point.dart';
-import 'package:fst_app_flutter/models/from_postgres/map/geometry_types/polygon.dart';
+import 'package:fst_app_flutter/models/from_postgres/map/geo_json_objects/geo_json_object.dart';
+import 'package:fst_app_flutter/models/from_postgres/map/geo_json_objects/geo_json_type.dart';
+import 'package:fst_app_flutter/models/from_postgres/map/geo_json_objects/geometry_types/geometry_object.dart';
+import 'package:fst_app_flutter/models/from_postgres/map/geo_json_objects/geometry_types/line_string.dart';
+import 'package:fst_app_flutter/models/from_postgres/map/geo_json_objects/geometry_types/multi_point.dart';
+import 'package:fst_app_flutter/models/from_postgres/map/geo_json_objects/geometry_types/point.dart';
+import 'package:fst_app_flutter/models/from_postgres/map/geo_json_objects/geometry_types/polygon.dart';
 import 'package:fst_app_flutter/models/from_postgres/map/properties.dart';
 import 'package:fst_app_flutter/utils/string_to_enum.dart';
 
-// TODO: document Feature @richtwin567
+/// A class that represents a GeoJSON Feature as defined by https://tools.ietf.org/html/rfc7946#section-3.2
 class Feature extends GeoJsonObject {
   GeoJsonGeometryObject geometry;
   Properties properties;
-  int id;  
+  int id;
 
   Feature(dynamic feature) : super(GeoJsonType.feature) {
     properties = Properties(
@@ -25,28 +24,32 @@ class Feature extends GeoJsonObject {
     var uknGeometry = feature['geometry'];
     var newCoords = uknGeometry['coordinates'];
     switch (stringToGeometryType(uknGeometry['geometry_type'])) {
-      case GeoJsonGeometryType.point:
+      case GeoJsonType.point:
         geometry = GeoJsonPoint(coordsJson: newCoords);
         break;
-      case GeoJsonGeometryType.multiPoint:
+      case GeoJsonType.multiPoint:
         geometry = GeoJsonMultiPoint(coordsJson: newCoords);
         break;
-      case GeoJsonGeometryType.lineString:
+      case GeoJsonType.lineString:
         geometry = GeoJsonLineString(coordsJson: newCoords);
         break;
-      case GeoJsonGeometryType.multiLineString:
+      case GeoJsonType.multiLineString:
         throw UnimplementedError();
         //geometry = MultiLineString(coordsJSON: newCoords);
         break;
-      case GeoJsonGeometryType.polygon:
+      case GeoJsonType.polygon:
         geometry = GeoJsonPolygon(coordsJson: newCoords);
         break;
-      case GeoJsonGeometryType.multiPolygon:
+      case GeoJsonType.multiPolygon:
         throw UnimplementedError();
         //geometry = MultiPolygon(coordsJSON: newCoords);
         break;
-      case GeoJsonGeometryType.geometryCollection:
+      case GeoJsonType.geometryCollection:
         throw UnimplementedError();
+        break;
+      case GeoJsonType.feature:
+        break;
+      case GeoJsonType.featureCollection:
         break;
     }
   }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:fst_app_flutter/models/from_postgres/map/geometry_types/geometry_object.dart';
-import 'package:fst_app_flutter/models/from_postgres/map/geometry_types/geometry_type.dart';
-import 'package:fst_app_flutter/models/from_postgres/map/position.dart';
+import 'package:fst_app_flutter/models/from_postgres/map/geo_json_objects/geo_json_type.dart';
+import 'package:fst_app_flutter/models/from_postgres/map/geo_json_objects/geometry_types/geometry_object.dart';
+import 'package:fst_app_flutter/models/from_postgres/map/geo_json_objects/geometry_types/position.dart';
 
-// TODO: document @richtwin567
+/// A class to represent a GeoJSON point as a kind of Geometry Object as defined by
+/// https://tools.ietf.org/html/rfc7946#section-3.1.2
 class GeoJsonPoint extends GeoJsonGeometryObject {
   GeoJsonPosition _coordinates;
 
@@ -11,7 +12,7 @@ class GeoJsonPoint extends GeoJsonGeometryObject {
 
   GeoJsonPoint({@required coordsJson})
       : assert(coordsJson != null),
-        super(GeoJsonGeometryType.point) {
+        super(GeoJsonType.point) {
     _coordinates = GeoJsonPosition(
         newLongitude: coordsJson[0]['longitude'],
         newLatitude: coordsJson[0]['latitude']);

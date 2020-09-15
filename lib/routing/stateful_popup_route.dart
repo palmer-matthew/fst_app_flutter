@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-// TODO: document @richtwin567
+/// A stateful version of the [PopupRoute] for the app preferences screen.
 class StatefulPopupRoute extends PopupRoute {
   Widget page;
 

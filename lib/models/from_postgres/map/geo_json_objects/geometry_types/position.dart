@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:fst_app_flutter/models/from_postgres/map/geo_json_objects/geometry_types/geometry_object.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-// TODO: document @richtwin567
-class GeoJsonPosition {
-  double _longitude; //MUST COME BEFORE LATITUDE
+/// A class to represent a GeoJSON Positon as defined by https://tools.ietf.org/html/rfc7946#section-3.1.1 
+class GeoJsonPosition extends GeoJsonGeometryObject {
+  double _longitude;
 
   double _latitude;
 
@@ -19,7 +20,7 @@ class GeoJsonPosition {
       {@required double newLongitude,
       @required double newLatitude,
       double elevation})
-      : assert(newLatitude != null && newLongitude != null) {
+      : assert(newLatitude != null && newLongitude != null), super(null) {
     _elevation = elevation;
     _longitude = newLongitude;
     _latitude = newLatitude;
@@ -38,10 +39,15 @@ class GeoJsonPosition {
       o.latitude == latitude &&
       o.elevation == elevation;
 
+  @override
   toGeoJson() => [latitude, longitude];
 
-  
   List<LatLng> extractLatLng() {
     return [LatLng(latitude, longitude)];
+  }
+
+  @override
+  toGeoJsonFile() {
+    return '[$longitude,$latitude]';
   }
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:fst_app_flutter/models/from_postgres/map/geometry_types/geometry_object.dart';
-import 'package:fst_app_flutter/models/from_postgres/map/geometry_types/geometry_type.dart';
-import 'package:fst_app_flutter/models/from_postgres/map/geometry_types/linear_ring.dart';
+import 'package:fst_app_flutter/models/from_postgres/map/geo_json_objects/geo_json_type.dart';
+import 'package:fst_app_flutter/models/from_postgres/map/geo_json_objects/geometry_types/geometry_object.dart';
+import 'package:fst_app_flutter/models/from_postgres/map/geo_json_objects/geometry_types/linear_ring.dart';
 
-// TODO: document GeoJsonPolygon @richtwin567
+/// A class to represent a GeoJSON Polygon as defined by https://tools.ietf.org/html/rfc7946#section-3.1.6
 class GeoJsonPolygon extends GeoJsonGeometryObject {
   List<GeoJsonLinearRing> _coordinates;
 
@@ -11,7 +11,7 @@ class GeoJsonPolygon extends GeoJsonGeometryObject {
 
   GeoJsonPolygon({@required coordsJson})
       : assert(coordsJson != null),
-        super(GeoJsonGeometryType.polygon) {
+        super(GeoJsonType.polygon) {
     _coordinates = [];
     var linearRingCoords = [];
     for (var i = 0; i < coordsJson.length; i++) {

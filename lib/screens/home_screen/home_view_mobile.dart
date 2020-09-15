@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fst_app_flutter/widgets/app_drawer/app_drawer.dart';
 import 'package:fst_app_flutter/widgets/card_container/card_container.dart';
 
@@ -43,12 +44,11 @@ class HomeMobilePortrait extends StatelessWidget {
           child: Container(
               height: queryData.size.height * 0.1442,
               width: queryData.size.width,
-              child: FittedBox(
+              child:  FittedBox(
                   fit: BoxFit.fill,
-                  child: Image(
-                    width: 50,
-                    image: AssetImage("assets/home_art.png"),
-                  ))),
+                  child:              
+                  
+                  SvgPicture.asset('assets/home.svg'))),
         )
       ]),
     );

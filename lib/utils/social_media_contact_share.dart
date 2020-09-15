@@ -8,9 +8,10 @@ import 'package:fst_app_flutter/utils/permissions.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:io';
 
-// TODO: document @richtwin567
-
+/// Opens WhatsApp to the chat of the specified [phone] number.
 openWhatsAppChat({@required String phone, String message = ''}) async {
+  /// Formats the [phone] number into a string url that can be used to open
+  /// WhatsApp on iOS or Android.
   String formatUrl() {
     if (Platform.isIOS) {
       return 'whatsapp://wa.me/$phone/?text=${Uri.parse(message)}';
@@ -22,6 +23,8 @@ openWhatsAppChat({@required String phone, String message = ''}) async {
   await openUrl(formatUrl());
 }
 
+/// Creates a saves a [VCard] version of a [Contact] to the app's temporary
+/// folder and shares it to WhatsApp.
 shareContactToWhatsApp(VCard vCard) async {
   try {
     final RegExp filenameCheck = RegExp(r'^([><":?\/\\*|,;\[\]]*)$');
@@ -29,19 +32,21 @@ shareContactToWhatsApp(VCard vCard) async {
           ..removeWhere((e) => e == '-' || e == '_'))
         .reduce((value, element) => value + '-' + element)
         .toString();
-    if (!filenameCheck.hasMatch(filename)) {
-      if (await requestPermission(Permission.storage)) {
-        String filepath =
-            join((await getTemporaryDirectory()).path, '$filename.vcf');
-        File vcf = File(filepath)..createSync();
-        vcf.writeAsStringSync(vCard.vcf);
-        await Share.shareFiles(
-          [filepath],
+    // Ensure that the filename is legal
+    if (filenameCheck.hasMatch(filename)) {
+      filename = 'temp';
+    }
+    if (await requestPermission(Permission.storage)) {
+      String filepath =
+          join((await getTemporaryDirectory()).path, '$filename.vcf');
+      File vcf = File(filepath)..createSync();
+      vcf.writeAsStringSync(vCard.vcf);
+      await Share.shareFiles([filepath],
           mimeTypes: ['text/directory'],
           subject: vCard.name + "'s contact",
-          text: vCard.name
-        );
-      }
+          text: vCard.name);
     }
-  } catch (e) {}
+  } catch (e) {
+    // TODO
+  }
 }

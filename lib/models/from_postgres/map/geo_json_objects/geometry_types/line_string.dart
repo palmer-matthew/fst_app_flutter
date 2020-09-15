@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fst_app_flutter/models/from_postgres/map/geometry_types/geometry_object.dart';
-import 'package:fst_app_flutter/models/from_postgres/map/geometry_types/geometry_type.dart';
-import 'package:fst_app_flutter/models/from_postgres/map/position.dart';
+import 'package:fst_app_flutter/models/from_postgres/map/geo_json_objects/geo_json_type.dart';
+import 'package:fst_app_flutter/models/from_postgres/map/geo_json_objects/geometry_types/geometry_object.dart';
+import 'package:fst_app_flutter/models/from_postgres/map/geo_json_objects/geometry_types/position.dart';
 
 // TODO: document @richtwin567
 class GeoJsonLineString extends GeoJsonGeometryObject {
@@ -12,7 +12,7 @@ class GeoJsonLineString extends GeoJsonGeometryObject {
   GeoJsonLineString({@required coordsJson})
       : assert(coordsJson != null),
         assert(coordsJson.length >= 2),
-        super(GeoJsonGeometryType.lineString) {
+        super(GeoJsonType.lineString) {
     _coordinates = List.generate(
         coordsJson.length,
         (i) => GeoJsonPosition(

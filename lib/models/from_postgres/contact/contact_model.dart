@@ -6,16 +6,30 @@ import 'package:fst_app_flutter/utils/string_to_enum.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:fst_app_flutter/utils/permissions.dart';
 
-// TODO: document Contact @richtwin567
+/// Contact class for parsing contacts from the database and manipulating them in the app.
+///
+/// A contact may have a [_name], [_website], particularly in the case of department contacts,
+/// an [_email] address, a [_fax] number in the case of offices, a [_description], 
+/// a [_department] it is affiliated with among the [Department]s, an assigned 
+/// [ContactType], zero or more [_phones], and a unique [_id]. 
 class Contact {
+  /// The unique ID assigned to this contact
   int _id;
+  /// The name associated with this contact
   String _name;
+  /// This contact's website
   String _website;
+  /// This contact's email address
   String _email;
+  /// The fax number for this contact
   String _fax;
+  /// A description of this contact
   String _description;
+  /// The [Department] this contact is affiliated with
   Department _department;
+  /// The [ContactType] of this contact
   ContactType _contactType;
+  /// The [_PhoneNumber]s for this contact
   List<_PhoneNumber> _phones;
 
   int get id => _id;
@@ -52,6 +66,7 @@ class Contact {
     _phones = phones;
   }
 
+  /// Converts this contact's fields to a form that can be parsed for saving to the user's phone.
   Map<String, Object> toNativeMap() {
     return {
       "displayName": name,
@@ -67,6 +82,7 @@ class Contact {
     };
   }
 
+  /// Invokes the method to save this Contact to the user's phone.
   saveNatively() async {
     try {
       if (await requestPermission(Permission.contacts)) {
@@ -77,7 +93,12 @@ class Contact {
   }
 }
 
-// TODO: document _PhoneNumber @richtwin567
+/// Phonenumber class for parsing phonenumbers and related information 
+/// from the database and manipulating them in the app.
+/// 
+/// A phone number only exists when it is attached to a [Contact]. Each phonenumber has
+/// a [_phone], the [ContactPlatform] it is associated with, the [Contact] it is
+/// attached to via [_contactID] and its own unique [_id].
 class _PhoneNumber {
   int _id;
   int _contactID;

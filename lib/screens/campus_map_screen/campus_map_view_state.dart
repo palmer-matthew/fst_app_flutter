@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fst_app_flutter/models/enums/department.dart';
 import 'package:fst_app_flutter/models/from_postgres/map/campus_map.dart';
-import 'package:fst_app_flutter/models/from_postgres/map/geo_json_types/feature_collection.dart';
-import 'package:fst_app_flutter/models/from_postgres/map/geometry_types/geometry_type.dart';
+import 'package:fst_app_flutter/models/from_postgres/map/geo_json_objects/feature_collection.dart';
+import 'package:fst_app_flutter/models/from_postgres/map/geo_json_objects/geo_json_type.dart';
 import 'package:fst_app_flutter/models/from_postgres/map/properties.dart';
 import 'package:fst_app_flutter/models/preferences/theme_model.dart';
 import 'package:fst_app_flutter/screens/campus_map_screen/campus_map_view_stateful.dart';
@@ -130,7 +130,7 @@ class CampusMapViewState extends State<CampusMapViewStateful>
   Set<Polyline> extractLineStringsToGoogleMaps(FeatureCollection col) {
     return col.features
         .where((feature) =>
-            feature.geometry.type == GeoJsonGeometryType.lineString)
+            feature.geometry.type == GeoJsonType.lineString)
         .map((e) => Polyline(
               polylineId: PolylineId('${e.id}'),
               color: e.properties.associatedWith.departmentColour.withAlpha(90),
@@ -145,7 +145,7 @@ class CampusMapViewState extends State<CampusMapViewStateful>
 
   Set<Marker> extractPointsToGoogleMaps(FeatureCollection col) {
     return col.features
-        .where((feature) => feature.geometry.type == GeoJsonGeometryType.point)
+        .where((feature) => feature.geometry.type == GeoJsonType.point)
         .map((e) => Marker(
             flat: true,
             icon: BitmapDescriptor.defaultMarkerWithHue(
@@ -169,7 +169,7 @@ class CampusMapViewState extends State<CampusMapViewStateful>
   Set<Polygon> extractPolygonsToGoogleMaps(FeatureCollection col) {
     return col.features
         .where(
-            (feature) => feature.geometry.type == GeoJsonGeometryType.polygon)
+            (feature) => feature.geometry.type == GeoJsonType.polygon)
         .map((e) => Polygon(
             polygonId: PolygonId('${e.id}'),
             fillColor:

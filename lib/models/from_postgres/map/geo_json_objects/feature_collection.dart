@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:fst_app_flutter/models/from_postgres/map/geo_json_types/feature.dart';
-import 'package:fst_app_flutter/models/from_postgres/map/geo_json_types/geo_json_object.dart';
-import 'package:fst_app_flutter/models/from_postgres/map/geo_json_types/geo_json_type.dart';
-import 'package:fst_app_flutter/models/from_postgres/map/geometry_types/geometry_type.dart';
+import 'package:fst_app_flutter/models/from_postgres/map/geo_json_objects/feature.dart';
+import 'package:fst_app_flutter/models/from_postgres/map/geo_json_objects/geo_json_object.dart';
+import 'package:fst_app_flutter/models/from_postgres/map/geo_json_objects/geo_json_type.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:fst_app_flutter/models/enums/department.dart';
 
-// TODO: document FeatureCollection @richtwin567
+/// A class that represents a GeoJSON Feature Collection as a type of [GeoJsonObject] 
+/// as defined by https://tools.ietf.org/html/rfc7946#section-3.3
 class FeatureCollection extends GeoJsonObject {
   List<Feature> features;
   FeatureCollection({@required this.features})
       : assert(features != null),
         super(GeoJsonType.featureCollection);
 
+  /// Converts all [Feature]s in this collection to JSON in a String. This can be written 
+  /// as a valid geojson file.
   @override
   String toGeoJsonFile() {
     return {
@@ -21,6 +23,7 @@ class FeatureCollection extends GeoJsonObject {
     }.toString();
   }
 
+  /// Converts the [Feature]s in this collection to a GeoJSON like [Map].
   @override
   Map<String, Object> toGeoJson() {
     return {
@@ -29,9 +32,10 @@ class FeatureCollection extends GeoJsonObject {
     };
   }
 
+  /// Converts the [GeoJsonPoint]s in this collection to Google Maps [Marker]s.
   Set<Marker> exportPointsToGoogleMaps() {
     return features
-        .where((feature) => feature.geometry.type == GeoJsonGeometryType.point)
+        .where((feature) => feature.geometry.type == GeoJsonType.point)
         .map((e) => Marker(
             onDragEnd: (value) {},
             markerId: MarkerId('${e.id}'),
@@ -45,10 +49,11 @@ class FeatureCollection extends GeoJsonObject {
         .toSet();
   }
 
+  /// Converts the [GeoJsonPolygon]s in this collection to Google Maps [Polygon]s.
   Set<Polygon> exportPolygonsToGoogleMaps() {
     return features
         .where(
-            (feature) => feature.geometry.type == GeoJsonGeometryType.polygon)
+            (feature) => feature.geometry.type == GeoJsonType.polygon)
         .map((e) => Polygon(
             polygonId: PolygonId('${e.id}'),
             fillColor:
@@ -60,10 +65,11 @@ class FeatureCollection extends GeoJsonObject {
         .toSet();
   }
 
+  /// Converts the [GeoJsonLineString]s in this collection to Google Maps [PolyLine]s.
   Set<Polyline> exportLineStringsToGoogleMaps() {
     return features
         .where((feature) =>
-            feature.geometry.type == GeoJsonGeometryType.lineString)
+            feature.geometry.type == GeoJsonType.lineString)
         .map((e) => Polyline(
               polylineId: PolylineId('${e.id}'),
               color: e.properties.associatedWith.departmentColour.withAlpha(90),

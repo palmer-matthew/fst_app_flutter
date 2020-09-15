@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fst_app_flutter/models/from_postgres/contact/contact_model.dart';
 import 'package:fst_app_flutter/models/preferences/theme_model.dart';
 import 'package:fst_app_flutter/routing/routes.dart';
@@ -414,6 +415,7 @@ abstract class ContactViewState extends State<ContactViewStateful>
                 future: request.getResults(
                     '$baseParam$extraParam', true, (data) => Contact(data)),
                 builder: (context, snapshot) {
+                  var mq = MediaQuery.of(context);
                   switch (snapshot.connectionState) {
                     case ConnectionState.none:
                       return RefreshIndicator(
@@ -460,7 +462,14 @@ abstract class ContactViewState extends State<ContactViewStateful>
                             contacts: contacts,
                           );
                         } else {
-                          return Center(child: Text('No matches found'));
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(child: SvgPicture.asset(themeModel.isDark? 'assets/undraw_no_data_qbuo_dark.svg':'assets/undraw_no_data_qbuo.svg' ,height: mq.size.height/3.5,)),
+                            Flexible(child: Text("No matches"))
+                          ],
+                        );
+
                         }
                       } else if (!snapshot.hasData || snapshot.hasError) {
                         return RefreshIndicator(
@@ -491,7 +500,13 @@ abstract class ContactViewState extends State<ContactViewStateful>
                               ]),
                         );
                       } else {
-                        return Center(child: Text('No matches found'));
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(child: SvgPicture.asset(themeModel.isDark? 'assets/undraw_no_data_qbuo_dark.svg':'assets/undraw_no_data_qbuo.svg' ,height: mq.size.height/3.5,)),
+                            Flexible(child: Text("No matches"))
+                          ],
+                        );
                       }
                       break;
                   }

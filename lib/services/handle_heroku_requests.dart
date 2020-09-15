@@ -1,14 +1,19 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-// TODO: document @richtwin567
+/// A class for fetching and parsing data from the app's Heroku Postgres
+/// database into a list of objects of type [T].
 class HerokuRequest<T> {
-  /// The [query] should be the end of the url for sending a request to the server.
+  /// The [query] should be the end of the url for sending a request to the Heroku
+  /// server or a full url for somewhere else.
   ///
   /// eg. To get all contacts from the Chemistry department, I should pass
   /// ```
   /// 'contact/?department=CHEM'
   /// ```
+  ///
+  /// Indicate that the [query] is for the app's Heroku database pass [queryIsForFSTHeroku] and `true`,
+  /// otherwise `false`.
   ///
   /// The response body is returned as a [String].
   Future<String> _getResultsString(
@@ -28,27 +33,30 @@ class HerokuRequest<T> {
       return '';
   }
 
-  /// Parses the response from `_getResultsString` and returns a [List] of
-  /// `dynamic` objects. The objects are in JSON format which is
-  /// [Map<dynamic,dynamic>] format in flutter.
+  /// Parses the response from [_getResultsString] and returns a [List] of
+  /// `dynamic` objects. The objects are in JSON format which is decoded to
+  /// [List<Map<dynamic,dynamic>>] format in flutter.
   ///
   /// A [Map] can be treated like a dictionary in Python in terms of
   /// declaration and accessing its members.
   ///
-  /// Continuing from the example given for `_getResultsString`, to get the
-  /// name of the first contact from the list of Chemistry department contacts,
-  /// I would call `data[0]['name']`.
+  /// Then each map in the list of maps is then parsed by the [constructor] to return a
+  /// list of type [List<T>].
   Future<List<T>> getResults(dynamic valueToQuery, bool queryIsForFSTHeroku,
       _Instantiator<T> constructor) async {
     return _getResultsString(valueToQuery, queryIsForFSTHeroku)
         .then((responseBody) {
-      List<dynamic> dataJSON = jsonDecode(responseBody);
-
-      List<T> data =
-          List.generate(dataJSON.length, (i) => constructor(dataJSON[i]));
-      return data;
+      try {
+        List<dynamic> dataJson = jsonDecode(responseBody);
+        List<T> data =
+            List.generate(dataJson.length, (i) => constructor(dataJson[i]));
+        return data;
+      } catch (e) {
+        return <T>[];
+      }
     });
   }
 }
 
+/// Used in [HerokuRequest.getResults] to make a list of objects of the model class of type [T].
 typedef S _Instantiator<S>(dynamic data);
